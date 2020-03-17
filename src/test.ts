@@ -2,7 +2,11 @@ import tape from "tape";
 import abstractBlobTests from "abstract-blob-store/tests";
 import { gcs } from "./";
 
-import { cloudStorage } from "./config.test.json";
+if (!process.env.GCS_CONFIG) {
+  throw new Error("Please provide a GCS_CONFIG env variable");
+}
+
+const { cloudStorage } = JSON.parse(process.env.GCS_CONFIG);
 
 const { bucket, credentials } = cloudStorage;
 
