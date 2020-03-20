@@ -1,24 +1,33 @@
 import tape from "tape";
 import abstractBlobTests from "abstract-blob-store/tests";
-import { gcs } from "./";
+import { rewiremock } from "./rewiremock";
+import { MockStorage } from "./MockStorage";
 
-if (!process.env.GCS_CONFIG) {
-  throw new Error("Please provide a GCS_CONFIG env variable");
-}
+import { cloudStorage } from "./config.example.json";
 
-const { cloudStorage } = JSON.parse(process.env.GCS_CONFIG);
+rewiremock
+  .module(
+    () => import("./"),
+    r => ({
+      "@google-cloud/storage": r.with({
+        Storage: MockStorage
+      })
+    })
+  )
+  .then(mock => {
+    const { gcs } = mock;
+    const { bucket, credentials } = cloudStorage;
 
-const { bucket, credentials } = cloudStorage;
+    const common = {
+      setup: function(t, cb) {
+        const store = gcs({ credentials, bucket });
+        cb(null, store);
+      },
+      teardown: function(t, store, blob, cb) {
+        if (blob) store.remove(blob, cb);
+        else cb();
+      }
+    };
 
-const common = {
-  setup: function(t, cb) {
-    const store = gcs({ bucket, credentials });
-    cb(null, store);
-  },
-  teardown: function(t, store, blob, cb) {
-    if (blob) store.remove(blob, cb);
-    else cb();
-  }
-};
-
-abstractBlobTests(tape, common);
+    abstractBlobTests(tape, common);
+  });

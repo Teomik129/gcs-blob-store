@@ -25,7 +25,8 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "node ./lib/test.js"
+    "test": "node ./lib/test.js",
+    "pretest": "npm run build"
   },
   "dependencies": {
     "@google-cloud/storage": "^4.5.0",
@@ -35,6 +36,7 @@
     "@types/node": "^13.9.0",
     "@types/tape": "^4.2.34",
     "abstract-blob-store": "^3.3.5",
+    "rewiremock": "^3.13.9",
     "tape": "^4.13.2",
     "typescript": "^3.8.3"
   }
