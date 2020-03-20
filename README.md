@@ -6,6 +6,8 @@ Pretty much just a thin wrapper around [`@google-cloud/storage`](https://github.
 
 [![blob-store-compatible](https://raw.githubusercontent.com/maxogden/abstract-blob-store/master/badge.png)](https://github.com/maxogden/abstract-blob-store)
 
+![Node.js CI](https://github.com/Teomik129/gcs-blob-store/workflows/Node.js%20CI/badge.svg)
+
 ## Usage
 
 ```js
@@ -15,7 +17,7 @@ const credentials = require("./credentials.json");
 const bucket = "my-gcs-bucket";
 const blobs1 = gcs({ bucket, credentials });
 // Or specify an absolute path to a service account key file
-const keyFilename = "/home/user/.config/keyfile.json"
+const keyFilename = "/home/user/.config/keyfile.json";
 const blobs2 = gcs({ bucket, keyFilename });
 ```
 

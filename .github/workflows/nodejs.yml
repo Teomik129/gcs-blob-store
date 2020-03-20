@@ -28,4 +28,3 @@ jobs:
       - run: npm test
         env:
           CI: true,
-          GCS_CONFIG: ${{ secrets.GCS_CONFIG }}
