@@ -29,15 +29,15 @@
     "pretest": "npm run build"
   },
   "dependencies": {
-    "@google-cloud/storage": "^4.5.0",
+    "@google-cloud/storage": "^4.7.0",
     "@justinbeckwith/duplexify": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^13.9.0",
-    "@types/tape": "^4.2.34",
+    "@types/node": "^13.13.5",
+    "@types/tape": "^4.13.0",
     "abstract-blob-store": "^3.3.5",
     "rewiremock": "^3.13.9",
-    "tape": "^4.13.2",
+    "tape": "^5.0.0",
     "typescript": "^3.8.3"
   }
 }
